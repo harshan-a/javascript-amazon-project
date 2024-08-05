@@ -33,3 +33,11 @@ export function addToCart(productId) {
     })
   };
 };
+
+export function removeFromCart(productId) {
+  cart.forEach((cartItem, i) => {
+    if(cartItem.productId === productId) {
+      cart.splice(i, 1);
+    }
+  });
+};
