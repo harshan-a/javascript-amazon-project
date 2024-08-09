@@ -1,4 +1,9 @@
-import { cart, removeFromCart, calculateCartQuantity, updateProductQuantity } from '../data/cart.js';
+import { 
+  cart, 
+  removeFromCart, 
+  calculateCartQuantity, 
+  updateProductQuantity, 
+  updateDeliveryOption } from '../data/cart.js';
 import { products } from '../data/products.js';
 import { formatCurrency } from './utils/money.js';
 import { deliveryOptions } from '../data/deliveryOptions.js';
@@ -17,10 +22,27 @@ cart.forEach((cartItem) => {
     }
   });
 
+  let deliveryOption;
+
+  deliveryOptions.forEach((option) => {
+    if(option.id === cartItem.deliveryOptionId) {
+      deliveryOption = option;
+    };
+  });
+
+  const today = dayjs();
+  const deliveryDate = today.add(
+    deliveryOption.deliveryDays,
+    'days'
+  );
+  const dateString = deliveryDate.format(
+    'dddd, MMMM D'
+  );
+
   orderSummaryHTML += `
     <div class="cart-item-container js-cart-item-container-${productId}">
       <div class="delivery-date">
-        Delivery date: Tuesday, June 21
+        Delivery date: ${dateString}
       </div>
 
       <div class="cart-item-details-grid">
@@ -82,7 +104,10 @@ function deliveryOptionsHTML(productId, cartItem) {
     const ischecked = deliveryOption.id === cartItem.deliveryOptionId;
     
     html += `
-      <div class="delivery-option">
+      <div class="delivery-option js-delivery-option"
+      data-product-id="${productId}"
+      data-delivery-option-id="${deliveryOption.id}"
+      >
         <input type="radio"
           class="delivery-option-input"
           name="delivery-option-${productId}"
@@ -103,8 +128,10 @@ function deliveryOptionsHTML(productId, cartItem) {
   return html;
 };
 
+
 document.querySelector('.js-order-summary')
   .innerHTML = orderSummaryHTML;
+
 
 document.querySelectorAll('.js-delete-quantity-link')
   .forEach((link) => {
@@ -121,6 +148,7 @@ document.querySelectorAll('.js-delete-quantity-link')
       updateCartQuantity();
     });
   });
+
 
 document.querySelectorAll('.js-update-quantity-link')
   .forEach((link) => {
@@ -143,12 +171,23 @@ document.querySelectorAll('.js-update-quantity-link')
     });
   });
 
+
 document.querySelectorAll('.js-save-quantity-link')
   .forEach((link) => {
     link.addEventListener('click', () => {
       const { productId } = link.dataset;
 
       saveUpdatedQuantity(productId);
+    });
+  });
+
+
+document.querySelectorAll('.js-delivery-option')
+  .forEach((element) => {
+    element.addEventListener('click', () => {
+      const {productId, deliveryOptionId }= element.dataset;
+
+      updateDeliveryOption(productId, deliveryOptionId);
     });
   });
 
