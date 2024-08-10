@@ -5,10 +5,11 @@ import {
   updateProductQuantity, 
   updateDeliveryOption 
 } from '../../data/cart.js';
-import { products, getProduct } from '../../data/products.js';
+import { getProduct } from '../../data/products.js';
 import { formatCurrency } from '../utils/money.js';
 import { deliveryOptions, getDeliveryOption } from '../../data/deliveryOptions.js';
 import dayjs from 'https://unpkg.com/dayjs@1.11.10/esm/index.js';
+import {renderPaymentSummary} from './paymentSummary.js';
 
 export function renderOrderSummary() {
   let orderSummaryHTML = '';
@@ -136,6 +137,7 @@ export function renderOrderSummary() {
         container.remove();
 
         updateCartQuantity();
+        renderPaymentSummary();
       });
     });
 
@@ -179,6 +181,7 @@ export function renderOrderSummary() {
 
         updateDeliveryOption(productId, deliveryOptionId);
         renderOrderSummary();
+        renderPaymentSummary();
       });
     });
 
@@ -202,6 +205,7 @@ export function renderOrderSummary() {
       removeFromCart(productId);
       container.remove();
       updateCartQuantity();
+      renderPaymentSummary();
       return;
     };
 
@@ -214,6 +218,7 @@ export function renderOrderSummary() {
     quantityLabelElem.innerHTML = newQuantity;
 
     updateCartQuantity();
+    renderPaymentSummary();
   };
 
 
