@@ -5,10 +5,11 @@ const dayOfWeek = today.format('dddd');
 
 // console.log(dayOfWeek);
 
-function isWeekEnd(date) {
+function isWeekEnd(dayjs) {
+  const date = dayjs.format('dddd');
   if(date === 'Saturday' || date === 'Sunday') {
     return date;
-  }
+  };
 };
 
 // console.log(isWeekEnd('Saturday'));
