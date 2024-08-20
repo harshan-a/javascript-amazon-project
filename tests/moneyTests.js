@@ -26,6 +26,8 @@ if(formatCurrency(2000.5) === '20.01') {
   console.log('Failed');
 };
 
+console.log('round down to the nearest cent');
+
 if(formatCurrency(2000.4) === '20.00') {
   console.log('Passed');
 } else {
