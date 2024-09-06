@@ -60,6 +60,51 @@ class Clothing extends Product {
 };
 
 
+// const date = new Date();
+// console.log(date);
+// console.log(date.toLocaleTimeString());
+// console.log(date.toLocaleDateString());
+
+
+// console.log(this);
+// const object = {
+//   a: 2,
+//   b: this.a
+// };
+
+
+// function logThis() {
+//   console.log(this);
+// }
+// logThis();
+
+
+// const object1 = {
+//   a: 2,
+//   b: 1
+// };
+// function logThis() {
+//   console.log(this);
+//   console.log(this.a);
+//   console.log(this.b);
+// }
+// logThis.call(object1); 
+// use call() method to call a function and assign value to 'this'.
+
+
+
+// const object2 = {
+//   a: 1,
+//   method: () => {
+//     console.log(this.a);
+//   }
+// };
+// object2.method();
+// 'this' cannot used in arrow function.
+
+
+
+
 export const products = [
   {
     id: "e43638ce-6aa0-4b85-b27f-e1d07eb678c6",
@@ -747,4 +792,4 @@ export const products = [
   }
   return new Product(productDetails);
 });
-console.log(products);
+// console.log(products);
