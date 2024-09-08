@@ -71,12 +71,15 @@ class Clothing extends Product {
 //   a: 2,
 //   b: this.a
 // };
+// In the above object not yet created, therefore 'this' is 'undifined'.
+// Simply, property can't use 'this'.
 
 
 // function logThis() {
 //   console.log(this);
 // }
 // logThis();
+// In normal function 'this' is 'undifined'.
 
 
 // const object1 = {
@@ -100,11 +103,13 @@ class Clothing extends Product {
 //   }
 // };
 // object2.method();
-// 'this' cannot used in arrow function.
+// Can't create a method with arrow function bcoz 'this' can't
+// access to the current object 
+// But we can create arrow function inside the method, so it can
+// get value of 'this' outside the arrow function inside the method.  
 
 
-
-
+ 
 export const products = [
   {
     id: "e43638ce-6aa0-4b85-b27f-e1d07eb678c6",
