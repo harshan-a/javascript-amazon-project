@@ -107,8 +107,8 @@ class Cart {
   }
 };
 
-const cart = new Cart('cart-oop');
-cart.addToCart('83d4ca15-0f35-48f5-b7a3-1ea210004f2e');
+export const cart = new Cart('cart-oop');
+// cart.addToCart('83d4ca15-0f35-48f5-b7a3-1ea210004f2e');
 console.log(cart);
 
 const businessCart = new Cart('cart-business');
