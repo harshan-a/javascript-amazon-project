@@ -23,6 +23,19 @@ class Cart {
       }
     ];
   }
+
+  loadCart(fun) {
+    const xhr = new XMLHttpRequest();
+  
+    xhr.addEventListener('load', () => {
+      console.log(xhr.response);
+  
+      fun();
+    });
+  
+    xhr.open('GET', 'https://supersimplebackend.dev/cart');
+    xhr.send();
+  };
   
   saveCartToLocalStorage() {
     localStorage.setItem(this.#localStorageKey, JSON.stringify(this.cartItems));
@@ -109,8 +122,8 @@ class Cart {
 
 export const cart = new Cart('cart-oop');
 // cart.addToCart('83d4ca15-0f35-48f5-b7a3-1ea210004f2e');
-console.log(cart);
+// console.log(cart);
 
-const businessCart = new Cart('cart-business');
-businessCart.updateDeliveryOption('e43638ce-6aa0-4b85-b27f-e1d07eb678c6', '3');
-console.log(businessCart);
+// const businessCart = new Cart('cart-business');
+// businessCart.updateDeliveryOption('e43638ce-6aa0-4b85-b27f-e1d07eb678c6', '3');
+// console.log(businessCart);
