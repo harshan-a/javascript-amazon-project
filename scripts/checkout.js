@@ -6,20 +6,38 @@ import {cart} from '../data/cart-class.js';
 // import '../data/car.js';
 // import '../data/backend-practice.js';
 
+
+async function loadPage() {
+  await loadProductsFetch();
+
+  await new Promise((resolve) => {
+    cart.loadCart(() => {
+      resolve('hi2');
+    });
+  });
+
+  renderOrderSummary();
+  renderPaymentSummary();
+  renderCheckoutHeader();
+}
+loadPage();
+
+/*
 Promise.all([
   loadProductsFetch(),
-   new Promise((resolve) => {
+  new Promise((resolve) => {
     cart.loadCart(() => {
       resolve('hi2');
     });
   })
   
 ]).then((value) => {
-  console.log(value);
+  // console.log(value);
   renderOrderSummary();
   renderPaymentSummary();
   renderCheckoutHeader();
 });
+*/
 
 /*
 new Promise ((resolve) => {
