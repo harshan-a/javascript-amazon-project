@@ -8,18 +8,32 @@ import {cart} from '../data/cart-class.js';
 
 
 async function loadPage() {
-  await loadProductsFetch();
 
-  await new Promise((resolve) => {
-    cart.loadCart(() => {
-      resolve('hi2');
+  try {
+    // throw 'error1' cause manual error
+    await loadProductsFetch();
+
+    await new Promise((resolve, reject) => {
+      // throw 'error2';
+      cart.loadCart(() => {
+        resolve('this will be returned');
+        // reject('error3'); 
+        /*
+        code inside the loadCart() 
+        wil be run in future, so create a manual error 
+        using reject() 
+        */
+      });
     });
-  });
 
-  renderOrderSummary();
-  renderPaymentSummary();
-  renderCheckoutHeader();
-}
+    renderOrderSummary();
+    renderPaymentSummary();
+    renderCheckoutHeader();
+
+  } catch (error) {
+    console.log('Unexpected error. Try again Later.');
+  };
+};
 loadPage();
 
 /*
