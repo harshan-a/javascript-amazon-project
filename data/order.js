@@ -12,10 +12,10 @@ export function loadOrder(cart) {
 
   }).then((response) => {
     console.log('load order');
-    return response.json();
+    return response;
 
   }).catch((error) => {
-    console.log('Unexpected error. Try again Later.');
+    console.log(error + '. Try again Later.');
   });
 
   return promise;

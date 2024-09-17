@@ -78,17 +78,25 @@ export function renderPaymentSummary() {
   document.querySelector('.js-place-order')
     .addEventListener('click', async () => {
       try {
-        const order = await loadOrder(cart.cartItems);
-        if(!order) {
-          throw 'fetch error';
-        }
+        const response = await loadOrder(cart.cartItems);
+
+        if(!response || response.status >= 400) {
+          throw response;
+        };
+
+        const order = await response.json();
         addOrder(order);
 
-        window.location.href = 'orders.html';
-
       } catch (error) {
-        // console.log('Unexpected error. Try again Later.');
-        alert('Unexpected error. Try again Later.');
+        if(error === undefined) {
+          alert('Unexpected error. Try again Later.');
+
+        } else {
+          console.log(error)
+          console.log('Error Status: ' + error.status + '. Try again Later.');
+          alert('Error Status: ' + error.status + '. Try again Later.');
+        }
+
       };
     });
 };
