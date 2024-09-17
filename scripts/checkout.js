@@ -10,27 +10,37 @@ import {cart} from '../data/cart-class.js';
 async function loadPage() {
 
   try {
+    /*
     // throw 'error1' cause manual error
     await loadProductsFetch();
 
+    await cart.loadCartFetch();
+    
     await new Promise((resolve, reject) => {
       // throw 'error2';
       cart.loadCart(() => {
         resolve('this will be returned');
         // reject('error3'); 
-        /*
-        code inside the loadCart() 
-        wil be run in future, so create a manual error 
-        using reject() 
-        */
+        
+        // code inside the loadCart() 
+        // wil be run in future, so create a manual error 
+        // using reject() 
       });
     });
+    */
+
+    await Promise.all([
+      loadProductsFetch(),
+      cart.loadCartFetch()
+    ]);
+
 
     renderOrderSummary();
     renderPaymentSummary();
     renderCheckoutHeader();
 
   } catch (error) {
+    console.log(error)
     console.log('Unexpected error. Try again Later.');
   };
 };

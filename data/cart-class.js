@@ -24,6 +24,7 @@ class Cart {
     ];
   }
 
+  /*
   loadCart(fun) {
     const xhr = new XMLHttpRequest();
   
@@ -36,6 +37,21 @@ class Cart {
     xhr.open('GET', 'https://supersimplebackend.dev/cart');
     xhr.send();
   };
+  */
+
+  async loadCartFetch() {
+    try{
+      const res = await fetch('https://supersimplebackend.dev/cart');
+      if(!res.ok) {
+        throw res;
+      };
+      const text = await res.text();
+      console.log(text);
+
+    } catch (err) {
+        console.log(err);
+    };
+  }
   
   saveCartToLocalStorage() {
     localStorage.setItem(this.#localStorageKey, JSON.stringify(this.cartItems));

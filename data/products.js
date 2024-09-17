@@ -150,9 +150,10 @@ export function loadProductsFetch() {
     
       return new Product(productDetails);
     });
-    console.log('Products loaded.');
+    console.log('load product');
 
   }).catch((error) => {
+    console.log(error)
     console.log('Unexpected error. Try again Later.');
   });
 
