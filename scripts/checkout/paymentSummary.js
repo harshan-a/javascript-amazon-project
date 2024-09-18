@@ -2,7 +2,7 @@ import {cart} from '../../data/cart-class.js';
 import {getProduct} from '../../data/products.js';
 import {getDeliveryOption} from '../../data/deliveryOptions.js';
 import {formatCurrency} from '../utils/money.js';
-import {loadOrder, addOrder} from '../../data/order.js';
+import orderObj from '../../data/ordersData.js';
 
 export function renderPaymentSummary() {
   let productsCents = 0;
@@ -77,26 +77,13 @@ export function renderPaymentSummary() {
 
   document.querySelector('.js-place-order')
     .addEventListener('click', async () => {
-      try {
-        const response = await loadOrder(cart.cartItems);
+      const order = await orderObj.loadOrder(cart.cartItems);
 
-        if(!response || response.status >= 400) {
-          throw response;
-        };
-
-        const order = await response.json();
-        addOrder(order);
-
-      } catch (error) {
-        if(error === undefined) {
-          alert('Unexpected error. Try again Later.');
-
-        } else {
-          console.log(error)
-          console.log('Error Status: ' + error.status + '. Try again Later.');
-          alert('Error Status: ' + error.status + '. Try again Later.');
-        }
-
+      if(!order) {
+        return;
       };
+      
+      orderObj.addOrder(order);
+      window.location.href = 'orders.html';
     });
-};
+  };
