@@ -1,5 +1,6 @@
 import orderObj from '../data/ordersData.js';
 import {loadProductsFetch, getProduct} from '../data/products.js';
+import {cart} from '../data/cart-class.js';
 
 
 async function loadPage() {
@@ -9,6 +10,7 @@ async function loadPage() {
     renderHTML();
 
   } catch (err) {
+    document.querySelector('.js-orders-grid').innerHTML = err;
     console.log(err)
     console.log('Unexpected error. Try again Later.');
   }
@@ -17,7 +19,7 @@ async function loadPage() {
 loadPage();
 
 function renderHTML() {
-  let orderHTML = '';
+  let orderHTML = noOrdersHTML() || '';
 
   orderObj.orders.forEach((order) => {
     orderHTML += `
@@ -70,14 +72,16 @@ function renderHTML() {
           <div class="product-quantity">
             Quantity: ${product.quantity}
           </div>
-          <button class="buy-again-button button-primary">
+          <button class="buy-again-button button-primary
+            js-buy-again-button"
+            data-product-id = ${product.productId}>
             <img class="buy-again-icon" src="images/icons/buy-again.png">
             <span class="buy-again-message">Buy it again</span>
           </button>
         </div>
   
         <div class="product-actions">
-          <a href="tracking.html">
+          <a href="tracking.html?orderId=${order.id}&productId=${product.productId}">
             <button class="track-package-button button-secondary">
               Track package
             </button>
@@ -89,5 +93,51 @@ function renderHTML() {
     return productHTML;
   };
 
+
+  function noOrdersHTML() {
+    if(orderObj.orders.length !== 0) {
+      return ;
+    };
+
+    const noOrdersHTML = `
+      <div>No orders yet &#128524;</div>
+      <a href="checkout.html">
+        View Cart
+      </a>
+    `;
+
+    return noOrdersHTML;
+  };
+
   document.querySelector('.js-orders-grid').innerHTML = orderHTML;
+  
+  document.querySelectorAll('.js-buy-again-button')
+    .forEach((button) => {
+      let timeOut;
+      button.addEventListener('click', () => {
+        const {productId} = button.dataset;
+        
+        cart.addToCart(productId);
+
+        button.innerHTML = 'Added';
+        clearTimeout(timeOut);
+        timeOut = setTimeout(() => {
+          button.innerHTML = `
+            <img class="buy-again-icon" src="images/icons/buy-again.png">
+            <span class="buy-again-message">Buy it again</span>
+          `;
+        }, 1000);
+        updateCartQuantity();
+      });
+    });
+  
+
+
+
+  function updateCartQuantity() {
+    const cartQuantity = cart.calculateCartQuantity();
+  
+    document.querySelector('.js-cart-quantity').innerHTML = cartQuantity;
+  };
+  updateCartQuantity();
 };

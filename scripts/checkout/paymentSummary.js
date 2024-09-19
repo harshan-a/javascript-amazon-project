@@ -70,6 +70,10 @@ export function renderPaymentSummary() {
       js-place-order">
       Place your order
     </button>
+    <button href = "orders.html" class="place-order-button button-primary
+      js-view-order">
+      View Orders
+    </button>
   `;
 
   document.querySelector('.js-payment-summary')
@@ -86,4 +90,9 @@ export function renderPaymentSummary() {
       orderObj.addOrder(order);
       window.location.href = 'orders.html';
     });
-  };
+
+  document.querySelector('.js-view-order')
+    .addEventListener('click', () => {
+      window.location.href = 'orders.html';
+    });
+};
