@@ -1,24 +1,19 @@
 import orderObj from '../data/ordersData.js';
 import {loadProductsFetch, getProduct} from '../data/products.js';
 import {cart} from '../data/cart-class.js';
+import {renderHeader} from './general/header.js';
 
+
+renderHeader();
 
 async function loadPage() {
-  try{
     await loadProductsFetch();
 
-    renderHTML();
-
-  } catch (err) {
-    document.querySelector('.js-orders-grid').innerHTML = err;
-    console.log(err)
-    console.log('Unexpected error. Try again Later.');
-  }
-  
-}
+    renderOrderHTML();
+};
 loadPage();
 
-function renderHTML() {
+function renderOrderHTML() {
   let orderHTML = noOrdersHTML() || '';
 
   orderObj.orders.forEach((order) => {

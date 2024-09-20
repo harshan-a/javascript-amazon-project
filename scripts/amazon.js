@@ -1,9 +1,20 @@
 import {cart} from '../data/cart-class.js';
-import { products, loadProducts } from '../data/products.js';
-import { formatCurrency } from './utils/money.js';
+import { 
+  products,  
+  loadProductsFetch
+} from '../data/products.js';
+import {renderHeader} from './general/header.js';
 
 
-loadProducts(renderProductsHTML);
+renderHeader();
+
+async function loadPage() {
+  await loadProductsFetch();
+
+  renderProductsHTML();
+};
+loadPage();
+
 
 function renderProductsHTML() {
   let productsHTML = '';

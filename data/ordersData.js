@@ -32,7 +32,7 @@ class Order {
         alert(`Error Status: ${error.status}. Try again Later.`);
 
       } else {
-        alert(error)
+        alert(error);
       }
     };
   
