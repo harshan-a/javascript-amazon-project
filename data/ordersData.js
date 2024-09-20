@@ -55,7 +55,20 @@ class Order {
     this.orders = this.orders.map((order) => {
       return new Item(order);
     });
-  }
+  };
+
+  getOrder(orderId) {
+    let matchingOrder;
+
+    this.orders.forEach((order) => {
+      if(orderId === order.id) {
+        matchingOrder = order;
+      }
+    });
+    return matchingOrder;
+  };
+
+  
 };
 
 class Item {
@@ -73,6 +86,10 @@ class Item {
 
   getDateString(date) {
     return `${dayjs(date).format('MMMM D')}`;
+  }
+
+  getTrackingDateString(date) {
+    return `Arriving on ${dayjs(date).format('dddd, MMMM D')}`;
   }
 
   getTotalPrice() {

@@ -1,4 +1,8 @@
+import {cart} from '../../data/cart-class.js'
+
 export function renderHeader() {
+  const cartQuantity = cart.calculateCartQuantity();
+
   const headerHTML = `
     <div class="amazon-header-left-section">
         <a href="amazon.html" class="header-link">
@@ -25,7 +29,9 @@ export function renderHeader() {
 
         <a class="cart-link header-link" href="checkout.html">
           <img class="cart-icon" src="images/icons/cart-icon.png">
-          <div class="cart-quantity js-cart-quantity"></div>
+          <div class="cart-quantity js-cart-quantity">
+            ${cartQuantity}
+          </div>
           <div class="cart-text">Cart</div>
         </a>
       </div>

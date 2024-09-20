@@ -126,13 +126,4 @@ function renderOrderHTML() {
       });
     });
   
-
-
-
-  function updateCartQuantity() {
-    const cartQuantity = cart.calculateCartQuantity();
-  
-    document.querySelector('.js-cart-quantity').innerHTML = cartQuantity;
-  };
-  updateCartQuantity();
 };

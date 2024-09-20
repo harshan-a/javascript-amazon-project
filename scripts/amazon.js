@@ -96,13 +96,6 @@ function renderProductsHTML() {
     });
   
   
-  function updateCartQuantity() {
-    const cartQuantity = cart.calculateCartQuantity();
-  
-    document.querySelector('.js-cart-quantity').innerHTML = cartQuantity;
-  };
-  updateCartQuantity();
-  
   
   function addedMessage(addedTimeout, productId) {
     const addedElement = document.querySelector(`.js-added-to-cart-${productId}`);
