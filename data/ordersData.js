@@ -1,5 +1,5 @@
 import dayjs from 'https://unpkg.com/dayjs@1.11.10/esm/index.js';
-import {formatCurrency} from '../scripts/utils/money.js'
+import {formatCurrency} from '../scripts/utils/money.js';
 
 
 class Order {
@@ -86,10 +86,6 @@ class Item {
 
   getDateString(date) {
     return `${dayjs(date).format('MMMM D')}`;
-  }
-
-  getTrackingDateString(date) {
-    return `Arriving on ${dayjs(date).format('dddd, MMMM D')}`;
   }
 
   getTotalPrice() {
