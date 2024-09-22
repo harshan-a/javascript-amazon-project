@@ -6,11 +6,12 @@ import {
 import {renderHeader} from './general/header.js';
 
 
-renderHeader();
+
 
 async function loadPage() {
   await loadProductsFetch();
 
+  renderHeader();
   renderProductsHTML();
 };
 loadPage();
@@ -18,8 +19,14 @@ loadPage();
 
 function renderProductsHTML() {
   let productsHTML = '';
-  
-  products.forEach((product) => {
+
+  const productsDetails = searchQuery() || products;
+
+  if(productsDetails.length === 0) {
+    productsHTML = '<div>No products matched your search.</div>';
+  };
+
+  productsDetails.forEach((product) => {
     productsHTML += `
       <div class="product-container">
         <div class="product-image-container">
@@ -93,10 +100,12 @@ function renderProductsHTML() {
         addedTimeout = addedMessage(addedTimeout, productId);
         
       });
+      
     });
   
   
   
+    
   function addedMessage(addedTimeout, productId) {
     const addedElement = document.querySelector(`.js-added-to-cart-${productId}`);
   
@@ -107,5 +116,32 @@ function renderProductsHTML() {
     }, 2000);
   
     return addedTimeout;
+  };
+
+  function updateCartQuantity() {
+    const cartQuantity = cart.calculateCartQuantity();
+
+    document.querySelector('.js-cart-quantity')
+      .innerHTML = cartQuantity;
+  };
+
+  function searchQuery() {
+    const url = new URL(window.location.href);
+    const searchQuery = url.searchParams.get('search_query');
+
+    if(!searchQuery) {
+      return;
+
+    } else {
+      const productsDetails = products.filter((product) => {
+        if(product.name.toLocaleLowerCase().includes(searchQuery.toLocaleLowerCase())){
+          return true;
+        };
+        return false;
+      });
+
+      return productsDetails;
+    }; 
+
   };
 };

@@ -4,11 +4,12 @@ import {renderHeader} from './general/header.js';
 import dayjs from 'https://unpkg.com/dayjs@1.11.10/esm/index.js';
 
 
-renderHeader();
+
 
 async function loadPage() {
   await loadProductsFetch();
 
+  renderHeader();
   renderTrackingHTML();
 };
 loadPage();

@@ -23,6 +23,7 @@ console.log(isSatSun('Sunday'));
 */
 
 
+/*
 const url = 'https://supersimplebackend.dev/greeting';
 function ex_18a() {
   const xhr = new XMLHttpRequest();
@@ -143,4 +144,31 @@ async function renderError(err) {
     console.log(err);
   }
 }
+*/
 
+navigator.geolocation.getCurrentPosition(showPosition, showError);
+
+const elem = document.querySelector('.class1');
+
+
+function showPosition(pos) {
+  const {
+    accuracy, 
+    altitude, 
+    altitudeAccuracy, 
+    heading, 
+    latitude, 
+    longitude, 
+    speed} = pos.coords;
+
+    elem.innerHTML = accuracy + '<br />';
+    elem.innerHTML += altitude + '<br />';
+    elem.innerHTML += latitude + '<br />';
+    elem.innerHTML += longitude + '<br />';
+    elem.innerHTML += speed + '<br />';
+
+    
+}
+function showError(err) {
+  console.log(err);
+}

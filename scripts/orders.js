@@ -4,11 +4,12 @@ import {cart} from '../data/cart-class.js';
 import {renderHeader} from './general/header.js';
 
 
-renderHeader();
+
 
 async function loadPage() {
     await loadProductsFetch();
 
+    renderHeader();
     renderOrderHTML();
 };
 loadPage();
@@ -126,4 +127,13 @@ function renderOrderHTML() {
       });
     });
   
+
+
+    
+  function updateCartQuantity() {
+    const cartQuantity = cart.calculateCartQuantity();
+
+    document.querySelector('.js-cart-quantity')
+      .innerHTML = cartQuantity;
+  };
 };
