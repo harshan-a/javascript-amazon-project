@@ -29,19 +29,21 @@ async function loadPage() {
     });
     */
 
-    await Promise.all([
+    const [res1, res2] = await Promise.all([
       loadProductsFetch(),
       cart.loadCartFetch()
     ]);
 
+    if(!res1 || !res2) {
+      throw [res1, res2];
+    }
 
     renderOrderSummary();
     renderPaymentSummary();
     renderCheckoutHeader();
 
   } catch (error) {
-    console.log(error)
-    console.log('Unexpected error. Try again Later.');
+    console.log(error);
   };
 };
 loadPage();

@@ -18,6 +18,7 @@ export class Product {
   name;
   rating;
   priceCents;
+  keywords;
 
   constructor(productDetails) {
     this.id = productDetails.id;
@@ -25,6 +26,7 @@ export class Product {
     this.name = productDetails.name;
     this.rating = productDetails.rating;
     this.priceCents = productDetails.priceCents;
+    this.keywords = productDetails.keywords;
   };
 
   getRatingImage() {
@@ -139,6 +141,9 @@ export function loadProductsFetch() {
     'https://supersimplebackend.dev/products'
 
   ).then((response) => {
+    if(!response.ok) {
+      throw response;
+    }
     return response.json();
 
   }).then((productsData) => { 
@@ -153,10 +158,12 @@ export function loadProductsFetch() {
       return new Product(productDetails);
     });
     console.log('load product');
+    return true;
 
   }).catch((error) => {
-    console.log(error)
+    console.log(error);
     console.log('Unexpected error. Try again Later.');
+    return false;
   });
 
   return promise;
@@ -189,6 +196,7 @@ export function loadProducts(fun) {
   xhr.open('GET', 'https://supersimplebackend.dev/products');
   xhr.send();
 };
+
 
 
 /*

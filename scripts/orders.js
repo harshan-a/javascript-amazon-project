@@ -7,12 +7,23 @@ import {renderHeader} from './general/header.js';
 
 
 async function loadPage() {
-    await loadProductsFetch();
+  try {
+    const res = await loadProductsFetch();
+
+    if(!res) {
+      throw res;
+    }
 
     renderHeader();
     renderOrderHTML();
+
+  } catch(err) {
+    console.log(err);
+  }
 };
 loadPage();
+
+
 
 function renderOrderHTML() {
   let orderHTML = noOrdersHTML() || '';

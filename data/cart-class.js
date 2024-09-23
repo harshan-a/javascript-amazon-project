@@ -47,9 +47,12 @@ class Cart {
       };
       const text = await res.text();
       console.log(text);
+      return true;
 
     } catch (err) {
         console.log(err);
+        console.log('Unexpected error. Try again Later.');
+        return false;
     };
   }
   

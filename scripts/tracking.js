@@ -5,12 +5,20 @@ import dayjs from 'https://unpkg.com/dayjs@1.11.10/esm/index.js';
 
 
 
-
 async function loadPage() {
-  await loadProductsFetch();
+  try {
+    const res = await loadProductsFetch();
 
-  renderHeader();
-  renderTrackingHTML();
+    if(!res) {
+      throw res;
+    }
+
+    renderHeader();
+    renderTrackingHTML();
+
+  } catch(err) {
+    console.log(err);
+  }
 };
 loadPage();
 

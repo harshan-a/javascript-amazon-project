@@ -7,12 +7,21 @@ import {renderHeader} from './general/header.js';
 
 
 
-
 async function loadPage() {
-  await loadProductsFetch();
+  try {
+    const res = await loadProductsFetch();
 
-  renderHeader();
-  renderProductsHTML();
+    if(!res) {
+      throw res;
+    }
+
+    renderHeader();
+    renderProductsHTML();
+    console.log(products);
+
+  } catch(err) {
+    console.log(err);
+  }
 };
 loadPage();
 
@@ -22,9 +31,13 @@ function renderProductsHTML() {
 
   const productsDetails = searchQuery() || products;
 
-  if(productsDetails.length === 0) {
-    productsHTML = '<div>No products matched your search.</div>';
-  };
+  if(productsDetails === 'no') {
+    document.querySelector('.js-products-grid')
+      .innerHTML = '<div>No products matched your search.</div>';
+    
+    return;
+  }
+
 
   productsDetails.forEach((product) => {
     productsHTML += `
@@ -118,6 +131,7 @@ function renderProductsHTML() {
     return addedTimeout;
   };
 
+
   function updateCartQuantity() {
     const cartQuantity = cart.calculateCartQuantity();
 
@@ -125,23 +139,36 @@ function renderProductsHTML() {
       .innerHTML = cartQuantity;
   };
 
+
   function searchQuery() {
     const url = new URL(window.location.href);
     const searchQuery = url.searchParams.get('search_query');
 
     if(!searchQuery) {
       return;
+    };
 
-    } else {
-      const productsDetails = products.filter((product) => {
-        if(product.name.toLocaleLowerCase().includes(searchQuery.toLocaleLowerCase())){
-          return true;
+    const productsDetails = products.filter((product) => {
+      const nameCheck = product.name.toLocaleLowerCase().includes(searchQuery.toLocaleLowerCase());
+      let keywordCheck = false;
+
+      product.keywords.forEach((keyword) => {
+        if(keyword.toLocaleLowerCase().includes(searchQuery.toLocaleLowerCase())) {
+          keywordCheck = true;
         };
-        return false;
-      });
+      })
+      console.log(keywordCheck);
 
-      return productsDetails;
-    }; 
+      if(nameCheck || keywordCheck){
+        return true;
+      };
+      return false;
+    });
 
+    if(productsDetails.length === 0) {
+      return 'no';
+    };
+
+    return productsDetails;
   };
 };
