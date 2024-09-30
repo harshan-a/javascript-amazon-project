@@ -88,6 +88,7 @@ export function renderPaymentSummary() {
       };
       
       orderObj.addOrder(order);
+      cart.clearCart();
       window.location.href = 'orders.html';
     });
 

@@ -198,6 +198,23 @@ export function loadProducts(fun) {
 };
 
 
+export function getKeywordsList() {
+  let keywordsList = [];
+
+  products.forEach((product) => {
+    product.keywords.forEach((keyword) => {
+      if(keywordsList.includes(keyword)) {
+        return;
+      }
+
+      keywordsList.push(keyword);
+    });
+  })
+
+  return keywordsList;
+}
+
+
 
 /*
 export const products = [

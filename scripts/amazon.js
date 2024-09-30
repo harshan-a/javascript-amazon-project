@@ -17,7 +17,6 @@ async function loadPage() {
 
     renderHeader();
     renderProductsHTML();
-    console.log(products);
 
   } catch(err) {
     console.log(err);
@@ -157,12 +156,12 @@ function renderProductsHTML() {
           keywordCheck = true;
         };
       })
-      console.log(keywordCheck);
 
       if(nameCheck || keywordCheck){
         return true;
       };
       return false;
+
     });
 
     if(productsDetails.length === 0) {
