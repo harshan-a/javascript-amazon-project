@@ -13,6 +13,24 @@ import {renderCheckoutHeader} from './checkoutHeader.js';
 export function renderOrderSummary() {
   let orderSummaryHTML = '';
 
+  if(cart.cartItems.length === 0) {
+    orderSummaryHTML = `
+      <div class="empty-cart">
+        <p>Your cart is empty.</p>
+        <a href="amazon.html"> 
+          <button class="view-products-btn button-primary">
+            View products
+          </button>
+        </a>
+      </div>
+    `;
+
+    document.querySelector('.js-order-summary')
+      .innerHTML = orderSummaryHTML;
+    
+    return;
+  };
+
   cart.cartItems.forEach((cartItem) => {
     const { productId, deliveryOptionId } = cartItem;
     

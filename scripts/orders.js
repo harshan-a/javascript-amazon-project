@@ -26,7 +26,19 @@ loadPage();
 
 
 function renderOrderHTML() {
-  let orderHTML = noOrdersHTML() || '';
+  let orderHTML = '';
+
+  if(orderObj.orders.length === 0 ) {
+    orderHTML = `
+      <div>No orders yet &#128524;</div>
+      <a href="checkout.html">
+        View Cart
+      </a>
+    `;
+
+    document.querySelector('.js-orders-grid').innerHTML = orderHTML;
+    return;
+  };
 
   orderObj.orders.forEach((order) => {
     orderHTML += `
@@ -101,20 +113,6 @@ function renderOrderHTML() {
   };
 
 
-  function noOrdersHTML() {
-    if(orderObj.orders.length !== 0) {
-      return ;
-    };
-
-    const noOrdersHTML = `
-      <div>No orders yet &#128524;</div>
-      <a href="checkout.html">
-        View Cart
-      </a>
-    `;
-
-    return noOrdersHTML;
-  };
 
   document.querySelector('.js-orders-grid').innerHTML = orderHTML;
   

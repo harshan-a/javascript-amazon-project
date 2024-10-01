@@ -66,10 +66,13 @@ export function renderPaymentSummary() {
       </div>
     </div>
 
-    <button class="place-order-button button-primary
-      js-place-order">
-      Place your order
-    </button>
+    <div class="orders-container 
+      ${cart.cartItems.length === 0 ? 'disable-orders-container' : ''}">
+      <button class="place-order-button button-primary
+        js-place-order">
+        Place your order
+      </button>
+    </div>
     <button href = "orders.html" class="place-order-button button-primary
       js-view-order">
       View Orders

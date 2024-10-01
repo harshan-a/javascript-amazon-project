@@ -234,3 +234,18 @@
 .update-quantity-link {
  display: none;
 }
+
+.disable-orders-container 
+.place-order-button {
+  opacity: 0.5;
+  pointer-events: none;
+}
+
+.view-products-btn {
+  padding: 8px 15px;
+  border-radius: 8px;
+
+  margin-top: 10px;
+
+  font-size: 16px;
+}
