@@ -19,4 +19,23 @@
 
   <script type="module" src="./scripts.js"></script>
   <script type="module" src="./car.js"></script>
+
+  <script>
+    const body = document.querySelector('body');
+    const div = document.createElement('div');
+    div.classList.add('scrolled');
+    div.style.width = '200px';
+    div.style.height = '200px';
+    div.style.overflow = 'scroll';
+
+    for(let i = 0; i <= 5; i++) {
+      div.innerHTML += '<p> hello </p>';
+    }
+
+    body.appendChild(div);
+    div.addEventListener('scroll', () => {
+      console.log('hi')
+    })
+  </script>
+
 </html>

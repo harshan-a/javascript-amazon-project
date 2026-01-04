@@ -38,9 +38,8 @@
   max-height: 300px;
   border-bottom-right-radius: 5px;
   border-bottom-left-radius: 5px;
-  overflow-x: hidden;
-  overflow-y: scroll;
   background-color: white;
+  overflow-y: auto;
 }
 
 .keyword-container {
@@ -60,8 +59,8 @@
 
 
 .search-list-grid::-webkit-scrollbar {
-  width: 1px;
+  width: 2px;
 }
-.search-list-grid::-webkit-scrollbar-thumb {
+.search-list-grid:hover::-webkit-scrollbar-thumb {
   background-color: gray;
 }

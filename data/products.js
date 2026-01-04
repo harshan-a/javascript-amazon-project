@@ -3,13 +3,13 @@ import formatCurrency from '../scripts/utils/money.js';
 export function getProduct(productId) {
   let matchingProduct;
 
-    products.forEach((product) => {
-      if(product.id === productId) {
-        matchingProduct = product;
-      }
-    });
+  products.forEach((product) => {
+    if (product.id === productId) {
+      matchingProduct = product;
+    }
+  });
 
-    return matchingProduct;
+  return matchingProduct;
 };
 
 export class Product {
@@ -118,6 +118,7 @@ export class Appliance extends Product {
 // }
 // logThis.call(object1); 
 // use call() method to call a function and assign value to 'this'.
+// the first parameter is consider for 'this' remaining will be the actual parameters of the function. 
 
 
 
@@ -131,7 +132,12 @@ export class Appliance extends Product {
 // Can't create a method with arrow function bcoz 'this' can't
 // access to the current object 
 // But we can create arrow function inside the method, so it can
-// get value of 'this' outside the arrow function inside the method.  
+// get value of 'this' outside the arrow function inside the method.
+
+// this : 
+// 'this' will be access to outer object inside the method;
+// 'this' will be undefined in normal function;
+// In arrow function, 'this' will can't change the value of outside the function. If arrow function is inside the function 'this' is undefined, if inside the method 'this' will point to the object;
 
 
 export let products = [];
@@ -141,20 +147,20 @@ export function loadProductsFetch() {
     'https://supersimplebackend.dev/products'
 
   ).then((response) => {
-    if(!response.ok) {
+    if (!response.ok) {
       throw response;
     }
     return response.json();
 
-  }).then((productsData) => { 
+  }).then((productsData) => {
     products = productsData.map((productDetails) => {
-      if(productDetails.type === 'clothing') {
+      if (productDetails.type === 'clothing') {
         return new Clothing(productDetails);
-    
-      } else if(productDetails.type === 'appliance') {
+
+      } else if (productDetails.type === 'appliance') {
         return new Appliance(productDetails);
       }
-    
+
       return new Product(productDetails);
     });
     console.log('load product');
@@ -175,13 +181,13 @@ export function loadProducts(fun) {
 
   xhr.addEventListener('load', () => {
     products = JSON.parse(xhr.response).map((productDetails) => {
-      if(productDetails.type === 'clothing') {
+      if (productDetails.type === 'clothing') {
         return new Clothing(productDetails);
-    
-      } else if(productDetails.type === 'appliance') {
+
+      } else if (productDetails.type === 'appliance') {
         return new Appliance(productDetails);
       }
-    
+
       return new Product(productDetails);
     });
     console.log('Products loaded.');
@@ -203,7 +209,7 @@ export function getKeywordsList() {
 
   products.forEach((product) => {
     product.keywords.forEach((keyword) => {
-      if(keywordsList.includes(keyword)) {
+      if (keywordsList.includes(keyword)) {
         return;
       }
 

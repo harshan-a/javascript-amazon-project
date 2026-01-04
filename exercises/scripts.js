@@ -146,6 +146,8 @@ async function renderError(err) {
 }
 */
 
+
+/*
 navigator.geolocation.getCurrentPosition(showPosition, showError);
 
 const elem = document.querySelector('.class1');
@@ -172,3 +174,38 @@ function showPosition(pos) {
 function showError(err) {
   console.log(err);
 }
+*/
+
+/*
+try {
+  fetch('http://localhost:5000/').then((res) => {
+    if(!res.ok) throw res;
+    return res.json();
+  }).then((res) => {
+    console.log(res);
+  })
+} catch(err) {
+  console.log(err);
+}
+*/
+
+
+async function start(i) {
+    const res = await fetch("/login", {
+      method: "POST",
+      headers: {
+        'content-type': "application/json"
+      },
+      body: JSON.stringify({
+        name: "Harshan"
+      })
+    });
+    if(res.ok) {
+      const data = await res.text();
+      console.log(data);
+    }
+}
+
+// for (let i = 0; i < 10; i++) {
+  start();
+// }

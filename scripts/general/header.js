@@ -132,7 +132,7 @@ export function renderHeader() {
         searchBarElem.removeEventListener('focusout', searchBarFocusOutFunc);
       })
 
-      searchListElem.addEventListener('mouseout' , () => {
+      searchListElem.addEventListener('mouseleave' , () => {
         searchBarElem.addEventListener('focusout', searchBarFocusOutFunc);
       })
   
@@ -196,6 +196,8 @@ export function renderHeader() {
 
       if(searchListElem)
         searchListElem.innerHTML = '';
+
+      searchBarElem.addEventListener('focusout', searchBarFocusOutFunc);
     };
 
 
