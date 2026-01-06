@@ -17,7 +17,7 @@ export function renderOrderSummary() {
     orderSummaryHTML = `
       <div class="empty-cart">
         <p>Your cart is empty.</p>
-        <a href="/"> 
+        <a href="index.html"> 
           <button class="view-products-btn button-primary">
             View products
           </button>

@@ -13,7 +13,7 @@ export function renderHeader() {
 
   const headerHTML = `
     <div class="amazon-header-left-section">
-      <a href="/" class="header-link">
+      <a href="index.html" class="header-link">
         <img class="amazon-logo"
           src="images/amazon-logo-white.png">
         <img class="amazon-mobile-logo"
@@ -91,9 +91,9 @@ export function renderHeader() {
     //trim() method is used to remove space from both side of the string.
 
     if (value !== "") {
-      window.location.href = `/?search_query=${value}`
+      window.location.href = `index.html?search_query=${value}`
     } else {
-      window.location.href = "/"
+      window.location.href = "index.html"
     }
   }
 
