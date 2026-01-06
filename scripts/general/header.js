@@ -1,20 +1,19 @@
-import {cart} from '../../data/cart-class.js'
-import {Search} from '../../data/search.js';
-import {getKeywordsList} from '../../data/products.js';
+import { cart } from "../../data/cart-class.js"
+import { Search } from "../../data/search.js"
+import { getKeywordsList } from "../../data/products.js"
 
 export function renderHeader() {
-  const cartQuantity = cart.calculateCartQuantity();
+  const cartQuantity = cart.calculateCartQuantity()
 
-  const url = new URL(window.location.href);
-  const searchQuery = url.searchParams.get('search_query');
+  const url = new URL(window.location.href)
+  const searchQuery = url.searchParams.get("search_query")
 
-  const keywordsList = getKeywordsList();
-  const searchObj = new Search(keywordsList);
-
+  const keywordsList = getKeywordsList()
+  const searchObj = new Search(keywordsList)
 
   const headerHTML = `
     <div class="amazon-header-left-section">
-      <a href="amazon.html" class="header-link">
+      <a href="/" class="header-link">
         <img class="amazon-logo"
           src="images/amazon-logo-white.png">
         <img class="amazon-mobile-logo"
@@ -27,7 +26,7 @@ export function renderHeader() {
       js-amazon-header-middle-section
     ">
       <input class="search-bar js-search-bar" placeholder="Search"
-        value="${searchQuery || ''}" >
+        value="${searchQuery || ""}" >
 
       <button class="search-button js-search-button">
         <img class="search-icon" src="images/icons/search-icon.png">
@@ -49,125 +48,103 @@ export function renderHeader() {
         <div class="cart-text">Cart</div>
       </a>
     </div>
-  `;
+  `
 
-  const headerElem = document.querySelector('.js-amazon-header');
-  headerElem.innerHTML = headerHTML;
+  const headerElem = document.querySelector(".js-amazon-header")
+  headerElem.innerHTML = headerHTML
 
-  const searchBtnElem = document.querySelector('.js-search-button');
-  searchBtnElem.addEventListener('click', () => {
-      searchEventDone();
-    });
+  const searchBtnElem = document.querySelector(".js-search-button")
+  searchBtnElem.addEventListener("click", () => {
+    searchEventDone()
+  })
 
-  const searchBarElem = document.querySelector('.js-search-bar');
+  const searchBarElem = document.querySelector(".js-search-bar")
 
   const searchBarFocusInFunc = (event) => {
-    searchFocusEvent(event.type);
+    searchFocusEvent(event.type)
 
-    const value = event.target.value.trim(); // event.target.value gives the value in the input bar.
+    const value = event.target.value.trim() // event.target.value gives the value in the input bar.
 
-    if(value !== '')
-      renderSearch(value);
-
-  };
-  searchBarElem.addEventListener('focusin', searchBarFocusInFunc);  
+    if (value !== "") renderSearch(value)
+  }
+  searchBarElem.addEventListener("focusin", searchBarFocusInFunc)
 
   const searchBarFocusOutFunc = (event) => {
-    searchFocusEvent(event.type);
-  };
-  searchBarElem.addEventListener('focusout', searchBarFocusOutFunc);  
-  
-  searchBarElem.addEventListener('keyup', (event) => {
+    searchFocusEvent(event.type)
+  }
+  searchBarElem.addEventListener("focusout", searchBarFocusOutFunc)
 
-      const value = event.target.value.trim();
+  searchBarElem.addEventListener("keyup", (event) => {
+    const value = event.target.value.trim()
 
-      if(event.key === 'Enter'){
-        searchEventDone();
-
-      } else {
-        renderSearch(value);
-      }
-    });  
-
-
+    if (event.key === "Enter") {
+      searchEventDone()
+    } else {
+      renderSearch(value)
+    }
+  })
 
   function searchEventDone() {
-    const inputElem = document.querySelector('.js-search-bar');
-    const value = inputElem.value.trim();
+    const inputElem = document.querySelector(".js-search-bar")
+    const value = inputElem.value.trim()
 
     //trim() method is used to remove space from both side of the string.
 
-    if(value !== '') {
-      window.location.href = `amazon.html?search_query=${value}`;
-
+    if (value !== "") {
+      window.location.href = `/?search_query=${value}`
     } else {
-      window.location.href = 'amazon.html';
+      window.location.href = "/"
     }
-  };
-
-
-
+  }
 
   function searchFocusEvent(param) {
-    const mainElem = document.querySelector(
-      '.js-main'
-    );
+    const mainElem = document.querySelector(".js-main")
     const midSecContainer = document.querySelector(
-      '.js-amazon-header-middle-section'
-    );
+      ".js-amazon-header-middle-section"
+    )
 
-    
-    if(param === 'focusin') {
-      const searchListElem = document.createElement('div');
-      searchListElem.classList.add('search-list-container');  
+    if (param === "focusin") {
+      const searchListElem = document.createElement("div")
+      searchListElem.classList.add("search-list-container")
 
-      const searchListOnElem = document.createElement('div');
-      searchListOnElem.classList.add('main-search-on');
-  
+      const searchListOnElem = document.createElement("div")
+      searchListOnElem.classList.add("main-search-on")
 
-      midSecContainer.appendChild(searchListElem);
-      mainElem.appendChild(searchListOnElem);
+      midSecContainer.appendChild(searchListElem)
+      mainElem.appendChild(searchListOnElem)
 
-      searchListElem.addEventListener('mouseenter' , () => {
-        searchBarElem.removeEventListener('focusout', searchBarFocusOutFunc);
+      searchListElem.addEventListener("mouseenter", () => {
+        searchBarElem.removeEventListener("focusout", searchBarFocusOutFunc)
       })
 
-      searchListElem.addEventListener('mouseleave' , () => {
-        searchBarElem.addEventListener('focusout', searchBarFocusOutFunc);
+      searchListElem.addEventListener("mouseleave", () => {
+        searchBarElem.addEventListener("focusout", searchBarFocusOutFunc)
       })
-  
-    } else if(param === 'focusout') {
-      const searchListElem = document.querySelector(
-        '.search-list-container'
-      );
-      const searchListOnElem = document.querySelector(
-        '.main-search-on'
-      );
+    } else if (param === "focusout") {
+      const searchListElem = document.querySelector(".search-list-container")
+      const searchListOnElem = document.querySelector(".main-search-on")
 
-      if(searchListElem) 
-        searchListElem.remove();
-      
-      if(searchListOnElem) 
-        searchListOnElem.remove();
+      if (searchListElem) searchListElem.remove()
 
-      midSecContainer.classList.remove('amazon-header-middle-section-search-on');
-    };
-  };
+      if (searchListOnElem) searchListOnElem.remove()
 
+      midSecContainer.classList.remove("amazon-header-middle-section-search-on")
+    }
+  }
 
   function renderSearch(intputValue) {
-    const value = intputValue.toLowerCase();
+    const value = intputValue.toLowerCase()
     const midSecContainer = document.querySelector(
-      '.js-amazon-header-middle-section'
-    );
+      ".js-amazon-header-middle-section"
+    )
 
-    const searchListGrid = document.createElement('div');
-    searchListGrid.classList.add('search-list-grid');
-    
-    let searchHTML = '';
-    if(value != '') {
+    const searchListGrid = document.createElement("div")
+    searchListGrid.classList.add("search-list-grid")
+
+    let searchHTML = ""
+    if (value != "") {
       searchObj.searchArray.forEach((keyword) => {
-        if(keyword.startsWith(value)) {
+        if (keyword.startsWith(value)) {
           searchHTML += `
             <div class="keyword-container js-keyword-container">
               <img class="keyword-search-icon" src="images/icons/search-icon.png">
@@ -175,41 +152,31 @@ export function renderHeader() {
                 ${keyword}
               </div>
             </div>
-          `;
+          `
         }
-      });
-    };
-    searchListGrid.innerHTML = searchHTML;
+      })
+    }
+    searchListGrid.innerHTML = searchHTML
 
-    const searchListElem = document.querySelector('.search-list-container');
-    
-    searchListElem.innerHTML = searchListGrid.outerHTML;
+    const searchListElem = document.querySelector(".search-list-container")
 
-    midSecContainer.classList.add(
-      'amazon-header-middle-section-search-on'
-    );
+    searchListElem.innerHTML = searchListGrid.outerHTML
 
-    if(searchHTML === '') {
-      midSecContainer.classList.remove(
-        'amazon-header-middle-section-search-on'
-      );
+    midSecContainer.classList.add("amazon-header-middle-section-search-on")
 
-      if(searchListElem)
-        searchListElem.innerHTML = '';
+    if (searchHTML === "") {
+      midSecContainer.classList.remove("amazon-header-middle-section-search-on")
 
-      searchBarElem.addEventListener('focusout', searchBarFocusOutFunc);
-    };
+      if (searchListElem) searchListElem.innerHTML = ""
 
+      searchBarElem.addEventListener("focusout", searchBarFocusOutFunc)
+    }
 
-
-    document.querySelectorAll('.js-keyword-container')
-      .forEach((container) => {
-        container.addEventListener('click', () => {
-          searchBarElem.value = container.innerText;
-          searchEventDone();
-        });
-      });
-  };
-
-};
-
+    document.querySelectorAll(".js-keyword-container").forEach((container) => {
+      container.addEventListener("click", () => {
+        searchBarElem.value = container.innerText
+        searchEventDone()
+      })
+    })
+  }
+}
